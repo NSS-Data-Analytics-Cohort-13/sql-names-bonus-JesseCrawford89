@@ -73,3 +73,85 @@ GROUP BY n.year
 ORDER BY COUNT(n.year) DESC
 
 --Answer: 2008 had the most variety in names at 35,079.
+
+--Question 11: What is the most popular name for a girl that starts with the letter X?
+
+SELECT name, gender, num_registered
+FROM names
+WHERE name LIKE 'X%'
+ORDER BY num_registered DESC
+
+--Answer: Ximena
+
+--Question 12: How many distinct names appear that start with a 'Q', but whose second letter is not 'u'?
+
+SELECT DISTINCT name
+FROM names
+WHERE name LIKE 'Q%' AND name NOT LIKE 'Qu%'
+
+--Answer: 46 names start with "Q" but not "Qu"
+
+--Question 13: Which is the more popular spelling between "Stephen" and "Steven"? Use a single query to answer this question
+
+SELECT name, COUNT(num_registered)
+FROM names
+WHERE name = 'Stephen' OR name = 'Steven'
+GROUP BY name
+
+--Answer: "Stephen" is the more popular spelling between the two options.
+
+--Question 14: What percentage of names are "unisex" - that is what percentage of names have been used both for boys and for girls?
+
+SELECT DISTINCT name, 
+FROM names
+WHERE gender IN ('M','F')
+GROUP BY DISTINCT name
+HAVING COUNT(DISTINCT gender) = 2;
+
+
+--Answer: There are 10,773 unisex names out of 98,400 names, which is equal to 10.9% of the names.
+
+--Question 15: How many names have made an appearance in every single year since 1880?
+
+SELECT DISTINCT name, COUNT(DISTINCT year)
+FROM names
+WHERE gender = 'M' OR gender = 'F'
+GROUP BY name
+HAVING COUNT(DISTINCT year) = 139;
+
+--Answer: 921 different names have appeared in every single year since 1880.
+
+--Question 16: How many names have only appeared in one year?
+
+SELECT DISTINCT name, COUNT(year)
+FROM names
+GROUP BY name
+HAVING COUNT(year) ='1'
+ORDER BY COUNT(year);
+
+
+--Answer: 21,100
+
+--Question 17: How many names only appeared in the 1950s?
+
+SELECT DISTINCT name, year
+FROM names
+WHERE year BETWEEN 1950 AND 1959
+GROUP BY DISTINCT name, year
+
+--Answer: 99,479 names appeared in the 1950's.
+
+--Question 18: How many names made their first appearance in the 2010s?
+
+SELECT DISTINCT name, year
+FROM names
+WHERE year >2009
+GROUP BY DISTINCT name, year
+
+--Answer: 
+
+--Question 19: Find the names that have not be used in the longest.
+
+--Answer:
+
+--Question 20: Come up with a question that you would like to answer using this dataset. Then write a query to answer this question.
