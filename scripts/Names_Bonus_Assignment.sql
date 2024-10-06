@@ -143,15 +143,30 @@ GROUP BY DISTINCT name, year
 
 --Question 18: How many names made their first appearance in the 2010s?
 
-SELECT DISTINCT name, year
+SELECT DISTINCT name
 FROM names
 WHERE year >2009
-GROUP BY DISTINCT name, year
+GROUP BY DISTINCT name
+ORDER BY name
 
---Answer: 
+--Answer: 53,143 names made their first appearance in the 2010's.
 
 --Question 19: Find the names that have not be used in the longest.
 
---Answer:
+SELECT name, MAX(year) AS last_registered_year
+FROM names
+GROUP BY name
+ORDER BY last_registered_year
+
+--Answer: Zilpah and Roll were last registered in 1881.
 
 --Question 20: Come up with a question that you would like to answer using this dataset. Then write a query to answer this question.
+
+--How many variations of "Jesse" have been registered across the timespan of this dataset?
+
+SELECT DISTINCT name
+FROM names
+WHERE name LIKE 'Jesse%' OR name LIKE'Jessie%'
+GROUP BY name
+
+--Answer: 27. Worth mentioning: Jessejames & Jessiejames (one word), Jesseka(interesting spelling), Jesseray and Jessiemae.  
